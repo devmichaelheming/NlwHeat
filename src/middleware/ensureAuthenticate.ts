@@ -20,9 +20,10 @@ export function ensureAuthenticate(request: Request, response: Response, next: N
     try {
         const { sub } = verify(token, process.env.JWT_SECRET) as IPayLoad;
 
-        request.user_id = sub
+        request.user_id = sub;
+        
         return next();
-    } catch (error) {
+    } catch (err) {
         return response.status(401).json({ erroCode: "token.expired" })
     }
 
